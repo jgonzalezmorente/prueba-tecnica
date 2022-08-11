@@ -1,0 +1,45 @@
+<div class="table-responsive" *ngIf="clientes.length > 0; else noClientes">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">DNI</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Email</th>
+                <th scope="col">Edad</th>
+                <th scope="col">Departamento</th>
+                <th scope="col">Acción</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <tr *ngFor="let cliente of clientes; let i = index">
+                <th scope ="row"
+                    class = "d-none d-md-table-cell">{{ i + 1 }}</th>
+                
+                    <td>{{ cliente.dni }}</td>
+                    <td>{{ cliente.nombre }}</td>
+                    <td>{{ cliente.apellidos }}</td>
+                    <td>{{ cliente.email }}</td>
+                    <td>{{ cliente.edad }}</td>
+                    <td>{{ cliente.departamento | departamento }}</td>
+                    <td>                            
+
+                        <app-agregar [cliente] = 'clientes[ i ]'></app-agregar>
+                        <button class   = "btn btn-outline-danger"
+                                (click) = "borrarCliente( cliente.id )"
+                                *ngIf   = "cliente.departamento != '1'">
+                            Eliminar                                
+                        </button>
+                    </td>                
+                </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #noClientes>
+    <div class = "alert fs-5 alert-secondary animated text-center">
+        No hay clientes registrados. Cree un nuevo cliente.
+    </div>  
+</ng-template>

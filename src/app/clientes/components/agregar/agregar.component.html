@@ -1,0 +1,139 @@
+<!-- Button trigger modal -->
+<button type                  = "button" 
+        class                 = "btn btn-primary float-end"
+        data-bs-toggle        = "modal"
+        [attr.data-bs-target] = "'#' + id"
+        *ngIf                 = "cliente == null; else botonEditar">
+        
+    <i class="bi bi-person-plus"></i> Agregar cliente
+</button>
+
+<ng-template #botonEditar>
+  <!-- Button trigger modal -->
+  <button type                  = "button" 
+          class                 = "btn btn-outline-primary me-1 mb-1 mt-1"
+          data-bs-toggle        = "modal" 
+          [attr.data-bs-target] = "'#' + id">
+      Editar 
+  </button>
+  
+</ng-template>
+
+  
+  <!-- Modal -->
+  <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" [id]='id' tabindex="-1" aria-labelledby="modalAgregarLabel">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content p-2">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalAgregarLabel">Agregar cliente {{id}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" #modal></button>
+        </div>
+        <div class="modal-body">
+          
+          <form autocomplete = "off"
+                [formGroup]  = "agregarForm"
+                (ngSubmit)   = "agregarCliente()">
+
+            <div class="mb-3">
+              <label for="dni" class="form-label">DNI</label>
+              
+              <input type            = "text" 
+                     class           = "form-control mb-1" 
+                     id              = "dni" 
+                     placeholder     = "Introduzca su DNI"
+                     formControlName = "dni">
+
+              <span error-msg
+                    [mensaje] = "textErrorDni"
+                    [valido]  = "!tieneError('dni')">
+              </span>
+
+            </div>
+
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+
+              <input type            = "text" 
+                     class           = "form-control" 
+                     id              = "nombre"
+                     placeholder     = "Introduzca su nombre"
+                     formControlName = "nombre">
+
+              <span error-msg 
+                    [valido] = "!tieneError('nombre')">
+              </span>
+
+            </div>
+
+            <div class="mb-3">
+              <label for="apellido1" class="form-label">Primer apellido</label>
+              
+              <input type            = "text" 
+                     class           = "form-control" 
+                     id              = "apellido1"
+                     placeholder     = "Introduzca su primer apellido"
+                     formControlName = "apellido1">
+
+              <span error-msg 
+                    [valido] = "!tieneError('apellido1')">
+               </span>
+ 
+            </div>
+
+            <div class="mb-3">
+              <label for="apellido2" class="form-label">Segundo apellido</label>
+              
+              <input type            = "text" 
+                     class           = "form-control" 
+                     id              = "apellido2"
+                     placeholder     = "Introduzca su segundo apellido"
+                     formControlName = "apellido2">
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type            = "email" 
+                     class           = "form-control" 
+                     id              = "email"
+                     placeholder     = "Introduzca su dirección de correo electrónico"
+                     formControlName = "email">
+
+              <span error-msg 
+                    mensaje  = "Introduzca un email válido"
+                    [valido] = "!tieneError('email')">
+              </span>                     
+            </div>
+
+            <div class="mb-3">
+              <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
+              
+              <input type            = "date" 
+                     class           = "form-control" 
+                     id              = "fecha_nacimiento"                     
+                     formControlName = "fecha_nacimiento">
+
+            </div>
+            <div class="mb-3">
+
+              <label for="departamento" class="form-label">Departamento</label>
+
+              <select class           = "form-select" 
+                      id              = "departamento"
+                      formControlName = "departamento">
+                <option value = "" selected>-- Seleccione departamento --</option>
+                <option value = "1">Administración</option>
+                <option value = "2">Tienda</option>
+                <option value = "3">Contabilidad</option>
+              </select>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>  
+              <button type="submit" class="btn btn-primary">Grabar</button>
+            </div>
+          </form>          
+          
+        </div>
+      </div>
+    </div>
+  </div>
